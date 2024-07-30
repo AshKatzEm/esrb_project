@@ -112,8 +112,12 @@ if (clicked):
     for descriptor in descriptor_list:
 	    if (descriptor in user_descriptors):
 		    if descriptor == "ReleaseDate":
-			    d = st.date_input("What's the release date?", datetime.date(2019, 7, 6))
-			    new_game_values.append(d)
+				try:
+					d = int(st.date_input("What's the release date?", datetime.date(2019, 7, 6)))
+				except:
+					d = 0
+				new_game_values.append(d)
+						
 		    else:
 			    new_game_values.append(1)
 	    
