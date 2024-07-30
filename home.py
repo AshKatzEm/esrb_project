@@ -10,7 +10,7 @@ import plotly.express as px
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-	  return pickle.load(open("models/final_model_releasedate.pkl", 'rb'))
+	return pickle.load(open("models/final_model_releasedate.pkl", 'rb'))
 
 
 
@@ -103,32 +103,27 @@ clicked = st.button('Try out the Predictor?')
 
 
 if (clicked):
-
     count = len(user_descriptors)
-
     new_game_values = []
-
-
     for descriptor in descriptor_list:
-	    if (descriptor in user_descriptors):
-		    if descriptor == "ReleaseDate":
-				try:					
-					d = int(st.date_input("What's the release date?", datetime.date(2019, 7, 6)))
-				except:
-					d = 0
-					
-				new_game_values.append(d)
-						
-		    else:
-			    new_game_values.append(1)
-	    
-	    else:
-		    new_game_values.append(0)
+        if descriptor in user_descriptors:
+              if descriptor == "ReleaseDate":
+                try:
+                    d = int(st.date_input("What's the release date?", datetime.date(2019, 7, 6)))
+
+                except:
+                    d = 0
+                
+                new_game_values.append(d)
+
+
+              else:
+                new_game_values.append(1)
+        else:
+            new_game_values.append(0)
+    
     new_game_values.append(count)
     new_game_df = pd.DataFrame([new_game_values], columns=selected_features)
-
-
-	
 
     y_pred = final_model.predict(new_game_df)
     
