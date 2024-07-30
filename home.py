@@ -51,7 +51,7 @@ final_model = load_model()
 # should I read from local repo or from github?
 
 
-cleaned_data = "https://raw.githubusercontent.com/HA-work/esrb_project/main/data/cleaned_games.csv"
+cleaned_data = "data/Cleaned_complete_dataset.csv"
 
 
 df = pd.read_csv(cleaned_data)
@@ -109,10 +109,14 @@ if (clicked):
 
 
     for descriptor in descriptor_list:
+	    
         if (descriptor in user_descriptors):
+		
             if descriptor == "ReleaseDate":
+		    
         	date = input("Enter your release date yyyymmdd: ")
        		new_game_values.append(date)
+		    
 	    else:
 		new_game_values.append(1)
 		
