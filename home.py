@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
+import datetime
 import plotly.express as px
 # added this to try and save resources
 
@@ -111,8 +112,8 @@ if (clicked):
     for descriptor in descriptor_list:
 	    if (descriptor in user_descriptors):
 		    if descriptor == "ReleaseDate":
-			    date = input("Enter your release date yyyymmdd: ")
-			    new_game_values.append(date)
+			    d = st.date_input("What's the release date?", datetime.date(2019, 7, 6))
+			    new_game_values.append(d)
 		    else:
 			    new_game_values.append(1)
 	    
