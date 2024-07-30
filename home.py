@@ -109,19 +109,15 @@ if (clicked):
 
 
     for descriptor in descriptor_list:
+	    if (descriptor in user_descriptors):
+		    if descriptor == "ReleaseDate":
+			    date = input("Enter your release date yyyymmdd: ")
+			    new_game_values.append(date)
+		    else:
+			    new_game_values.append(1)
 	    
-        if (descriptor in user_descriptors):
-		
-            if descriptor == "ReleaseDate":
-		    
-        	date = input("Enter your release date yyyymmdd: ")
-       		new_game_values.append(date)
-		    
 	    else:
-		new_game_values.append(1)
-		
-        else:
-            new_game_values.append(0)
+		    new_game_values.append(0)
     new_game_values.append(count)
     new_game_df = pd.DataFrame([new_game_values], columns=selected_features)
 
