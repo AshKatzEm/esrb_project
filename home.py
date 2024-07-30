@@ -116,6 +116,7 @@ if (clicked):
 					d = int(st.date_input("What's the release date?", datetime.date(2019, 7, 6)))
 				except:
 					d = 0
+					
 				new_game_values.append(d)
 						
 		    else:
