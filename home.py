@@ -112,7 +112,7 @@ if (clicked):
     for descriptor in descriptor_list:
 	    if (descriptor in user_descriptors):
 		    if descriptor == "ReleaseDate":
-				try:
+				try:					
 					d = int(st.date_input("What's the release date?", datetime.date(2019, 7, 6)))
 				except:
 					d = 0
