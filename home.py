@@ -97,6 +97,13 @@ clicked = st.button('Try out the Predictor?')
 
 # now we can ask
 
+def get_date():
+    intro_dialogue = st.text_input(label='When was the game released? YYYYMMDD')
+    submit_button = st.button(label='Submit')
+
+    if submit_button and intro_dialogue:
+        return intro_dialogue
+
 
 
 
@@ -108,13 +115,13 @@ if (clicked):
     for descriptor in descriptor_list:
         if descriptor in user_descriptors:
             if descriptor == "ReleaseDate":
-                d = st.text_input("When was the game released?", 'YYYYMMDD')
-                while d=="YYYYMMDD":
-                    st.stop()
-                try:
-                    d = int(d)
-                except:
-                    d = 0
+                d = get_date()
+                if d is not None:
+
+                    try:
+                        d = int(d)
+                    except:
+                        d = 0
                 
                 new_game_values.append(d)
 
