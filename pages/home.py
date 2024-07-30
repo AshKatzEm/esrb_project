@@ -3,15 +3,13 @@ import pandas as pd
 import numpy as np
 import pickle
 import plotly.express as px
-
-
 # added this to try and save resources
 
 # not sure why I got the mutation warning when I do not change the model
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-	  return pickle.load(open("/Volumes/GoogleDrive/My Drive/esrb_ratings_analysis_project/models/final_model_releasedate.pkl", 'rb'))
+	  return pickle.load(open("../models/final_model_releasedate.pkl", 'rb'))
 
 
 
