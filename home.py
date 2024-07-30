@@ -42,7 +42,12 @@ final_model = load_model()
 # Begin user inputs
 
 
+def get_date():
+    intro_dialogue = st.text_input(label='When was the game released? YYYYMMDD')
+    submit_button = st.button(label='Submit')
 
+    if submit_button and intro_dialogue:
+        return intro_dialogue
 
 
 # since we now split up the model
@@ -86,10 +91,12 @@ descriptor_list = selected_features.copy()
 
 
 descriptor_list.remove("num_descriptors")
+descriptor_list.remove('ReleaseDate')
 
 
 user_descriptors = st.multiselect('Descriptors', descriptor_list)
 
+date = get_date()
 
 clicked = st.button('Try out the Predictor?')
 
@@ -97,43 +104,26 @@ clicked = st.button('Try out the Predictor?')
 
 # now we can ask
 
-def get_date():
-    intro_dialogue = st.text_input(label='When was the game released? YYYYMMDD')
-    submit_button = st.button(label='Submit')
-
-    if submit_button and intro_dialogue:
-        return intro_dialogue
 
 
 
 
 
 
-if (clicked):
+
+if (clicked) and date is not None:
     count = len(user_descriptors)
     new_game_values = []
     for descriptor in descriptor_list:
         if descriptor in user_descriptors:
-            if descriptor == "ReleaseDate":
-                d = get_date()
-                if d is not None:
+            new_game_values.append(1)
 
-                    try:
-                        d = int(d)
-                    except:
-                        d = 0
-                
-                new_game_values.append(d)
-
-
-            else:
-                new_game_values.append(1)
         else:
             new_game_values.append(0)
     
     new_game_values.append(count)
     new_game_df = pd.DataFrame([new_game_values], columns=selected_features)
-
+    new_game_df["ReleaseDate"] = date
     y_pred = final_model.predict(new_game_df)
     
     st.write("The model predicted that your game will be")
