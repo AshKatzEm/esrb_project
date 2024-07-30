@@ -51,7 +51,7 @@ final_model = load_model()
 # should I read from local repo or from github?
 
 
-cleaned_data = "data/Cleaned_complete_dataset.csv"
+cleaned_data = "data/final_model_data.csv"
 
 
 df = pd.read_csv(cleaned_data)
