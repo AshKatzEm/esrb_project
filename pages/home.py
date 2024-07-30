@@ -11,7 +11,7 @@ import plotly.express as px
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-	  return pickle.load(open('models/final_model.pkl', 'rb'))
+	  return pickle.load(open("/Volumes/GoogleDrive/My Drive/esrb_ratings_analysis_project/models/final_model_releasedate.pkl", 'rb'))
 
 
 
