@@ -108,7 +108,7 @@ if (clicked):
     for descriptor in descriptor_list:
         if descriptor in user_descriptors:
             if descriptor == "ReleaseDate":
-                d = st.text_input("When was the game released?", YYYYMMDD)
+                d = st.text_input("When was the game released?", 'YYYYMMDD')
                 try:
                     d = int(d)
                 except:
