@@ -4,6 +4,7 @@ import numpy as np
 import pickle
 import datetime
 import plotly.express as px
+import re
 # added this to try and save resources
 
 # not sure why I got the mutation warning when I do not change the model
@@ -42,12 +43,6 @@ final_model = load_model()
 # Begin user inputs
 
 
-def get_date():
-    intro_dialogue = st.text_input(label='When was the game released? YYYYMMDD')
-    submit_button = st.button(label='Submit')
-
-    if submit_button and intro_dialogue:
-        return intro_dialogue
 
 
 # since we now split up the model
@@ -96,7 +91,7 @@ descriptor_list.remove('ReleaseDate')
 
 user_descriptors = st.multiselect('Descriptors', descriptor_list)
 
-date = get_date()
+date = st.text_input(label='When was the game released? YYYYMMDD')
 
 clicked = st.button('Try out the Predictor?')
 
@@ -110,8 +105,7 @@ clicked = st.button('Try out the Predictor?')
 
 
 
-
-if (clicked) and date is not None:
+if (clicked) and re.compile("[1-2][0-9][0-9][0-9][0-1][0-9][0-3][0-9]").match(date):
     count = len(user_descriptors)
     new_game_values = []
     for descriptor in descriptor_list:
