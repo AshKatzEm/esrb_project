@@ -90,10 +90,10 @@ if (clicked) and re.compile("[1-2][0-9][0-9][0-9][0-1][0-9][0-3][0-9]").match(da
 
     #add the two non-listed features
     new_game_df.loc[0,"ReleaseDate"] = int(date)
-    new_game_df.loc[0,"num_descriptors"] = len(clicked)
+    new_game_df.loc[0,"num_descriptors"] = len(user_descriptors)
 
     #add the listed features
-    for descriptor in descriptor_list:
+    for descriptor in user_descriptors:
         new_game_df.loc[0,descriptor] =1
     
     
