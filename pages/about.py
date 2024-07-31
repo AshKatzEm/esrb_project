@@ -7,16 +7,17 @@ st.set_page_config(
     page_title="About"
     )
 
+st.write("The three of us trained a model and created this app to showcase it.")
 
-st.write("The model made for the project was a Random Forest classifier.")
+st.write("The final model used was a Random Forest classifier.")
 
-st.write("It was selected as it was the best performing out of the several models attempted")
+st.write("It was selected based on trials with a number of different models such as DecisionTreeClassifier, MultinomialNB, and gb.XGBClassifier Kmeans, as it was the best performing.")
 
-st.write("It was trained on about 2200 rows of data.")
+st.write("It was trained on about 2300 rows of data.")
 
 
 
-cleaned_data = "https://raw.githubusercontent.com/HA-work/esrb_project/main/data/cleaned_games.csv"
+cleaned_data = "data/Cleaned_complete_dataset.csv"
 
 
 df = pd.read_csv(cleaned_data)
@@ -35,8 +36,13 @@ st.write("The model takes in these content descriptions to try and see if there 
 
 st.write("The model was made with the default hyper parameters as after testing multiple variations using CV Grid Search a noticable improvement was not found.")
 
+st.write("As a final touch, we actually scraped the release dates for many of the games and this improved the performance of the model by 5%. Since we could only get  80% of the release dates, the loss in performace there makes it only slighty better then without release dates and a larger dataset")
+
 st.write("The model achieved an accuracy, f1-score and recall of 87%")
 
 st.write("After this the model was then trained on all the data to create the final model.")
+
+
+
 
 
