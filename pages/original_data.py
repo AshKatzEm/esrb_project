@@ -24,7 +24,7 @@ st.header("Original Video Game Data")
 
 st.write("This is the original data.")
 
-original_data = "../data/complete_raw_dataset.csv"
+original_data = "data/complete_raw_dataset.csv"
 df = pd.read_csv(original_data)
 
 
