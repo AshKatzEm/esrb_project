@@ -2,14 +2,13 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-import datetime
 import plotly.express as px
 import re
 # added this to try and save resources
 
 # not sure why I got the mutation warning when I do not change the model
 
-@st.cache(allow_output_mutation=True)
+@st.cache_resource(allow_output_mutation=True)
 def load_model():
 	return pickle.load(open("models/final_model_releasedate.pkl", 'rb'))
 
@@ -36,25 +35,13 @@ st.write("This is a website made to showcase a model to predict the ESRB ratings
 # Load the model you already created...
 final_model = load_model()
 
-# needed to save the model my own way instead of how the boilerplate way
-
-# tried downloading another attempt to save
-
 # Begin user inputs
 
 
 
 
-# since we now split up the model
-
-# and the cleaning I have to read in the csv to get the features
-
-# should I read from local repo or from github?
-
-
+#read in the csv to get the features
 cleaned_data = "data/final_model_data.csv"
-
-
 df = pd.read_csv(cleaned_data)
 
 
@@ -69,55 +56,49 @@ st.write("If you want to see the prediction for a game without any descriptors j
 
 
 
-
-selected_features = list(df.columns)
-
-
-
-selected_features.remove("title")
-selected_features.remove("esrb_rating")
-selected_features.remove("esrb_encoded")
-
-selected_features.remove("no_descriptors")
+#For the model input
+selected_features = list(df.columns) #36
+selected_features.remove("title") #35
+selected_features.remove("esrb_rating") #34
+selected_features.remove("esrb_encoded") #33
+selected_features.remove("no_descriptors") #32
 
 
+# For the dropdown list
 descriptor_list = selected_features.copy()
+descriptor_list.remove("num_descriptors") #31
+descriptor_list.remove('ReleaseDate') #30
 
-
-
-descriptor_list.remove("num_descriptors")
-descriptor_list.remove('ReleaseDate')
-
-
+#allow user to select features 
 user_descriptors = st.multiselect('Descriptors', descriptor_list)
 
+#allow user to select a release date
 date = st.text_input(label='When was the game released? YYYYMMDD')
 
+# User runs prediction
 clicked = st.button('Try out the Predictor?')
 
 
 
-# now we can ask
-
-
-
-
-
-
-
 if (clicked) and re.compile("[1-2][0-9][0-9][0-9][0-1][0-9][0-3][0-9]").match(date):
-    count = len(user_descriptors)
-    new_game_values = []
-    for descriptor in descriptor_list:
-        if descriptor in user_descriptors:
-            new_game_values.append(1)
 
-        else:
-            new_game_values.append(0)
+    #create empty df
+    row = {}
+    for i in range(len(selected_features)):
+        row[selected_features[i]] = [0]
+    new_game_df = pd.DataFrame(row) #32
+
+    #add the two non-listed features
+    new_game_df.loc[0,"ReleaseDate"] = int(date)
+    new_game_df.loc[0,"num_descriptors"] = len(clicked)
+
+    #add the listed features
+    for descriptor in descriptor_list:
+        new_game_df.loc[0,descriptor] =1
     
-    new_game_values.append(count)
-    new_game_df = pd.DataFrame([new_game_values], columns=selected_features)
-    new_game_df["ReleaseDate"] = date
+    
+    
+
     y_pred = final_model.predict(new_game_df)
     
     st.write("The model predicted that your game will be")
@@ -137,17 +118,10 @@ if (clicked) and re.compile("[1-2][0-9][0-9][0-9][0-1][0-9][0-3][0-9]").match(da
     else:
         st.write("Error")
 
-    #st.write(y_pred)
 
     y_pred_proba = final_model.predict_proba(new_game_df)
     
     st.write("The probability for each of the categories in order of E, ET, M and T are")
-
-    #st.write(y_pred_proba)
-
-    # what if a prediction is 50-50
-
-
     # maybe create the dataframe?
 
     ratings = ["E", "ET", "T", "M"]
