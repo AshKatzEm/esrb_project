@@ -197,5 +197,6 @@ if (clicked) and re.compile("[1-2][0-9][0-9][0-9][0-1][0-9][0-3][0-9]").match(da
 
     st.balloons()
 else:
-    st.write("Your release date is not formatted correctly")
+    if clicked:
+        st.write("Your release date is not formatted correctly")
 
