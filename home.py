@@ -8,7 +8,7 @@ import re
 
 # not sure why I got the mutation warning when I do not change the model
 
-@st.cache_resource(allow_output_mutation=True)
+@st.cache_resource(experimental_allow_widgets=True)
 def load_model():
 	return pickle.load(open("models/final_model_releasedate.pkl", 'rb'))
 
