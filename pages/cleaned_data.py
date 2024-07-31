@@ -22,8 +22,8 @@ st.set_page_config(
 
 st.header("Cleaned Video Game Data")
 
-original_data = "../data/Cleaned_complete_dataset.csv"
-df = pd.read_csv(original_data)
+cleaned_data = "../data/Cleaned_complete_dataset.csv"
+df = pd.read_csv(cleaned_data)
 
 
 
