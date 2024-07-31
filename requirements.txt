@@ -3,6 +3,5 @@ scikit-learn==1.3.2
 pandas
 numpy
 plotly
-re
 plotly-express
 pycaret
